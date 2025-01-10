@@ -35,10 +35,35 @@ fn solution1(allocator: std.mem.Allocator, input_text: []const u8) !u32 {
     return result;
 }
 
+fn solution2(allocator: std.mem.Allocator, input_text: []const u8) !i32 {
+    const lists = try read_input(allocator, input_text);
+    defer allocator.free(lists[0]);
+    defer allocator.free(lists[1]);
+
+    var counts = std.AutoHashMap(i32, i32).init(allocator);
+    defer counts.deinit();
+
+    for (lists[1]) |n| {
+        const base = counts.get(n) orelse 0;
+        try counts.put(n, base + 1);
+    }
+
+    var result: i32 = 0;
+    for (lists[0]) |n| {
+        const m = counts.get(n) orelse 0;
+        result += n * m;
+    }
+    return result;
+}
 pub fn solve(allocator: std.mem.Allocator) !void {
     std.debug.print("solution 1: {d}\n", .{try solution1(allocator, input)});
+    std.debug.print("solution 2: {d}\n", .{try solution2(allocator, input)});
 }
 
-test {
+test "solution 1" {
     try std.testing.expectEqual(11, try solution1(std.testing.allocator, input_test));
+}
+
+test "solution 2" {
+    try std.testing.expectEqual(31, try solution2(std.testing.allocator, input_test));
 }
