@@ -55,6 +55,7 @@ fn solution2(allocator: std.mem.Allocator, input_text: []const u8) !i32 {
     }
     return result;
 }
+
 pub fn solve(allocator: std.mem.Allocator) !void {
     std.debug.print("solution 1: {d}\n", .{try solution1(allocator, input)});
     std.debug.print("solution 2: {d}\n", .{try solution2(allocator, input)});
