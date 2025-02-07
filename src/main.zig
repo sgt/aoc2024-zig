@@ -2,6 +2,7 @@ const std = @import("std");
 
 const day01 = @import("day01.zig");
 const day02 = @import("day02.zig");
+const day03 = @import("day03.zig");
 
 pub fn main() !void {
     var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
@@ -17,6 +18,7 @@ pub fn main() !void {
     switch (day) {
         1 => try day01.solve(ally),
         2 => try day02.solve(ally),
+        3 => try day03.solve(ally),
         else => @panic("unknown day"),
     }
 }
